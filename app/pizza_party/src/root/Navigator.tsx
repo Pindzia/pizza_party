@@ -25,16 +25,16 @@ class Navigator extends Component<Props, State> {
       ...this.state,
       handleCloseNavMenu: this.handleCloseNavMenu,
       handleOpenNavMenu: this.handleOpenNavMenu,
-      pages: ["MenuItem", "MenuItem2", "MenuItem3"],
+      pages: ["Home", "Menu"],
     };
   };
 
   handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    this.setState({...this.state, anchorElNav: event.currentTarget });
+    this.setState({ ...this.state, anchorElNav: event.currentTarget });
   };
 
   handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    this.setState({...this.state, anchorElUser: event.currentTarget });
+    this.setState({ ...this.state, anchorElUser: event.currentTarget });
   };
 
   handleCloseNavMenu = () => {
