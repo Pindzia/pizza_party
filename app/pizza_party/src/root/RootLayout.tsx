@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Navigator from "./Navigator";
 import Footer from "./Footer";
 import { Container } from "@mui/material";
@@ -8,24 +8,16 @@ type Props = {
   children: React.ReactNode;
 };
 
-type State = Record<string, never>;
-
-class RootLayout extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  state = {};
-
-  render() {
-    return (
-      <>
-        <Navigator />
-        <Container maxWidth="md">{this.props.children ?? <Outlet />}</Container>
-        <Footer />
-      </>
-    );
-  }
-}
+const RootLayout = (props: Props) => {
+  return (
+    <>
+      <Navigator />
+      <Container maxWidth="md" sx={{ overflow: "hidden", mb: 14 }}>
+        {props.children ?? <Outlet />}
+      </Container>
+      <Footer />
+    </>
+  );
+};
 
 export default RootLayout;

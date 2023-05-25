@@ -1,7 +1,8 @@
-import { Box, Icon, IconButton, Menu, Typography } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import React, { Component } from "react";
+import { Box, Icon, Menu, MenuItem, Typography } from "@mui/material";
+import React from "react";
 import { NavLink } from "react-router-dom";
+import MobileMenuButton from "../../molecules/navigation/MobileMenuButton";
+import MobileMenuNavLink from "../../molecules/navigation/MobileMenuNavLink";
 
 type Props = {
   handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
@@ -10,27 +11,17 @@ type Props = {
   pages: string[];
 };
 
-type State = Record<string, never>;
-
-class MobileMenu extends Component<Props, State> {
-  state = {};
-
-  render() {
-    return [
+const MobileMenu = (props: Props) => {
+  return (
+    <>
       <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          onClick={this.props.handleOpenNavMenu}
-          color="inherit"
-        >
-          <MenuIcon />
-        </IconButton>
+        <MobileMenuButton
+          handleOpenNavMenu={props.handleOpenNavMenu}
+          menuId="menu-appbar"
+        />
         <Menu
           id="menu-appbar"
-          anchorEl={this.props.anchorElNav}
+          anchorEl={props.anchorElNav}
           anchorOrigin={{
             vertical: "bottom",
             horizontal: "left",
@@ -40,26 +31,24 @@ class MobileMenu extends Component<Props, State> {
             vertical: "top",
             horizontal: "left",
           }}
-          open={Boolean(this.props.anchorElNav)}
-          onClose={this.props.handleCloseNavMenu}
+          open={Boolean(props.anchorElNav)}
+          onClose={props.handleCloseNavMenu}
           sx={{
             display: { xs: "block", md: "none" },
           }}
         >
-          {this.props.pages.map((page) => (
-            <NavLink
+          {props.pages.map((page) => (
+            <MobileMenuNavLink
               key={page + "mobile"}
-              to={"/" + page.toLowerCase()}
-              onClick={this.props.handleCloseNavMenu}
-            >
-              <Typography textAlign="center">{page}</Typography>
-            </NavLink>
+              page={page}
+              handleCloseNavMenu={props.handleCloseNavMenu}
+            />
           ))}
         </Menu>
-      </Box>,
+      </Box>
       <Icon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
         <img src="src/assets/pizza_logo.png" alt="pizza icon" />
-      </Icon>,
+      </Icon>
       <Typography
         variant="h5"
         noWrap
@@ -77,9 +66,9 @@ class MobileMenu extends Component<Props, State> {
         }}
       >
         Pizza Party
-      </Typography>,
-    ];
-  }
-}
+      </Typography>
+    </>
+  );
+};
 
 export default MobileMenu;

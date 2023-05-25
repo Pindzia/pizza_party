@@ -35,8 +35,9 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         var OriginEntity = await this.GetByIdAsync(id, cancellationToken);
         _dbSet.Attach(OriginEntity);
+        this.SetProperty(ref entity, this.GetPrimaryKeyName<TEntity>(), id);
         _dbContext.Entry(OriginEntity).CurrentValues.SetValues(entity);
-        _dbContext.Entry(entity).State = EntityState.Modified;
+        //_dbContext.Entry(entity).State = EntityState.Modified;
         await this.SaveAsync(cancellationToken);
     }
 
@@ -50,5 +51,26 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     public async Task SaveAsync(CancellationToken cancellationToken)
     {
         await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public string GetPrimaryKeyName<TEntity>()
+    {
+        var entityType = _dbContext.Model.FindEntityType(typeof(TEntity));
+        var primaryKey = entityType.FindPrimaryKey();
+        var primaryKeyPropertyName = primaryKey.Properties.Select(x => x.Name).FirstOrDefault();
+        return primaryKeyPropertyName;
+    }
+
+    public void SetProperty<TEntity>(ref TEntity obj, string propertyName, object value)
+    {
+        var propertyInfo = obj.GetType().GetProperty(propertyName);
+
+        if (propertyInfo == null)
+            throw new Exception("Could not find property.");
+
+        if (!propertyInfo.CanWrite)
+            throw new Exception("Primary Key property is read-only.");
+
+        propertyInfo.SetValue(obj, value, null);
     }
 }

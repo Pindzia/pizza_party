@@ -1,7 +1,7 @@
 import { AppBar, Container, Toolbar } from "@mui/material";
-import React, { Component } from "react";
-import RegularMenu from "./nav/RegularMenu";
-import MobileMenu from "./nav/MobileMenu";
+import React, { useState } from "react";
+import RegularMenu from "../components/organisms/navigation/RegularMenu";
+import MobileMenu from "../components/organisms/navigation/MobileMenu";
 
 type Props = Record<string, never>;
 
@@ -10,53 +10,53 @@ type State = {
   anchorElUser: null | HTMLElement;
 };
 
-class Navigator extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-  }
+const Navigator = (props: Props) => {
+  const useMenuState = () => {
+    const [state, setState] = useState<State>({
+      anchorElNav: null,
+      anchorElUser: null,
+    });
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+      setState((prevState: State) => {
+        return { ...prevState, anchorElNav: event.currentTarget };
+      });
+    };
 
-  state = {
-    anchorElNav: null,
-    anchorElUser: null,
-  };
+    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+      setState((prevState: State) => {
+        return { ...prevState, anchorElUser: event.currentTarget };
+      });
+    };
 
-  useMenuState = () => {
+    const handleCloseNavMenu = () => {
+      setState((prevState: State) => {
+        return { ...prevState, anchorElNav: null };
+      });
+    };
+
+    const handleCloseUserMenu = () => {
+      setState((prevState: State) => {
+        return { ...prevState, anchorElUser: null };
+      });
+    };
     return {
-      ...this.state,
-      handleCloseNavMenu: this.handleCloseNavMenu,
-      handleOpenNavMenu: this.handleOpenNavMenu,
+      ...state,
+      handleCloseNavMenu: handleCloseNavMenu,
+      handleOpenNavMenu: handleOpenNavMenu,
       pages: ["Home", "Menu"],
     };
   };
 
-  handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    this.setState({ ...this.state, anchorElNav: event.currentTarget });
-  };
-
-  handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    this.setState({ ...this.state, anchorElUser: event.currentTarget });
-  };
-
-  handleCloseNavMenu = () => {
-    this.setState({ ...this.state, anchorElNav: null });
-  };
-
-  handleCloseUserMenu = () => {
-    this.setState({ ...this.state, anchorElUser: null });
-  };
-
-  render() {
-    return (
-      <AppBar position="static">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <RegularMenu {...this.useMenuState()} />
-            <MobileMenu {...this.useMenuState()} />
-          </Toolbar>
-        </Container>
-      </AppBar>
-    );
-  }
-}
+  return (
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <RegularMenu {...useMenuState()} />
+          <MobileMenu {...useMenuState()} />
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+};
 
 export default Navigator;

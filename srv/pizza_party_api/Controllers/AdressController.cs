@@ -33,4 +33,10 @@ public class AdressController : ControllerBase
         return _adressService.UpdateAdress(id, adress, cancellationToken);
     }
 
+    [HttpDelete("{id}")]
+    public Task DeleteAdress(int id, CancellationToken cancellationToken)
+    {
+        return _adressService.DeleteAdress(id, cancellationToken);
+    }
+
 }

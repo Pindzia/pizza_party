@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pizza_party_api", "pizza_party_api\pizza_party_api.csproj", "{3C0C6B7B-43A0-48A7-80A4-F10FE8806E6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pizza_party_api_test", "pizza_party_api_test\pizza_party_api_test.csproj", "{ED876722-FF25-4B7F-8218-50BE2C849CC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{3C0C6B7B-43A0-48A7-80A4-F10FE8806E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C0C6B7B-43A0-48A7-80A4-F10FE8806E6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C0C6B7B-43A0-48A7-80A4-F10FE8806E6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED876722-FF25-4B7F-8218-50BE2C849CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED876722-FF25-4B7F-8218-50BE2C849CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED876722-FF25-4B7F-8218-50BE2C849CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED876722-FF25-4B7F-8218-50BE2C849CC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -8,5 +8,7 @@ public interface IRepository<TEntity> where TEntity : class
     Task UpdateAsync(object id, TEntity entity, CancellationToken cancellationToken);
     Task DeleteAsync(object id, CancellationToken cancellationToken);
     Task SaveAsync(CancellationToken cancellationToken);
+    string GetPrimaryKeyName<TEntity>();
+    void SetProperty<TEntity>(ref TEntity obj, string propertyName, object value);
 }
 
