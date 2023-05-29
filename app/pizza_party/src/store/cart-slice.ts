@@ -65,8 +65,6 @@ const cartSlice = createSlice({
   },
 });
 
-export type Pizza = CartItem;
-
 export const cartActions = cartSlice.actions;
 
 export default cartSlice.reducer;

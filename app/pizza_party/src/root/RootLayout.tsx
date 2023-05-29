@@ -12,7 +12,7 @@ const RootLayout = (props: Props) => {
   return (
     <>
       <Navigator />
-      <Container maxWidth="md" sx={{ overflow: "hidden", mb: 14 }}>
+      <Container maxWidth="md" sx={{ overflow: "hidden", mb: 9 }}>
         {props.children ?? <Outlet />}
       </Container>
       <Footer />

@@ -4,7 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 const Footer = () => {
   return (
     <Box
-      sx={{ bgcolor: "background.paper", p: 4 }}
+      sx={{ bgcolor: "background.paper", p: 2 }}
       component="footer"
       bottom={0}
       position="fixed"
@@ -17,7 +17,7 @@ const Footer = () => {
           variant="body2"
           color="text.secondary"
           align="center"
-          sx={{ mt: 3 }}
+          sx={{ mt: 2.2 }}
         >
           {"Copyright © "}
           <Link color="inherit" component={RouterLink} to="/">

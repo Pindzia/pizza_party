@@ -1,48 +1,54 @@
-import React, { Component } from "react";
-import Title from "../atoms/Title";
-import PizzaTypeList from "../templates/menu/PizzaTypeList";
-import PizzasGrid from "../templates/menu/PizzasGrid";
+import { Suspense } from "react";
+import PizzasMenu from "../templates/menu/PizzasMenu";
+import { Await, defer, json, useLoaderData } from "react-router-dom";
+import PizzaType from "../../models/menu/PizzaType";
+import Pizza from "../../models/menu/Pizza";
+import PizzaListLoader from "../organisms/menu/PizzaListLoader";
 
 type Props = Record<string, never>;
 
 type State = Record<string, never>;
 
-class Menu extends Component<Props, State> {
-  state = {};
-
-  render() {
-    return (
-      <>
-        <ResponsiveGrid />
-      </>
-    );
-  }
-}
+const Menu = (props: Props) => {
+  const { pizzas } = useLoaderData();
+  return (
+    <Suspense fallback={<PizzaListLoader />}>
+      <Await resolve={pizzas}>
+        {(pizzas) => <PizzasMenu pizzas={pizzas} />}
+      </Await>
+    </Suspense>
+  );
+};
 
 export default Menu;
 
-import { Grid } from "@mui/material";
-import PizzaCard from "../molecules/menu/PizzaCard";
-
-const ResponsiveGrid = () => {
+async function loaderPizzas() {
+  /*
+  const response = await fetch("http://localhost:8080/events");
+  if (!response.ok) {
+    return json({ message: "Loading events failed" }, { status: 500 });
+  } else {
+    const resData = await response.json();
+    return resData.events;
+  }*/
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   const cards = Array.from(Array(30).keys()); // for four cards
-  const pizzas = cards.map((card) => {
+  const pizzas = cards.map((card: number): Pizza => {
     return {
       id: card,
       name: "Pizza " + card,
       description: "Pizza description " + card,
       price: 10 + card,
-      totalPrice: 10 + card,
-      quantity: 1,
+      imageLink: "https://picsum.photos/120/120?random=" + card,
+      listOfIngredients: ["Ingredient " + card],
+      type: PizzaType.Cheese,
     };
   });
-  return (
-    <Grid container spacing={3} sx={{ mt: 1 }}>
-      {pizzas.map((pizza) => (
-        <Grid item xs={12} lg={3} md={6} key={pizza.id}>
-          <PizzaCard item={pizza} />
-        </Grid>
-      ))}
-    </Grid>
-  );
-};
+  return pizzas;
+}
+
+export async function loader() {
+  return defer({
+    pizzas: loaderPizzas(),
+  });
+}

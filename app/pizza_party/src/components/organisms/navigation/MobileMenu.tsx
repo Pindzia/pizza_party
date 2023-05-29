@@ -1,4 +1,4 @@
-import { Box, Icon, Menu, MenuItem, Typography } from "@mui/material";
+import { Box, Icon, Menu, Typography } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import MobileMenuButton from "../../molecules/navigation/MobileMenuButton";
