@@ -15,7 +15,7 @@ namespace pizza_party_api.Repositories
         public async Task<IEnumerable<Order>> GetOrdersByUserId(int userId, CancellationToken cancellationToken)
         {
             return await _dbContext.Orders
-                .Include(o => o.Cart).ThenInclude(c => c.Pizzas)
+                .Include(o => o.Cart).ThenInclude(c => c.CartItems).ThenInclude(ci => ci.Pizza)
                 .Where(o => o.UserId == userId)
                 .ToListAsync(cancellationToken);
         }

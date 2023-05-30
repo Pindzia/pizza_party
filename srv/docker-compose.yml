@@ -1,0 +1,36 @@
+﻿services:
+ pizzapartyapi:
+   image: pizza_party_api
+   restart: "no"
+   environment:
+      - ASPNETCORE_URLS=https://pizzapartyapi
+   depends_on:
+      - sqlserver
+   ports:
+      - 443:443
+   volumes:
+      - type: volume
+        source: devpizza_party_apicert
+        target: /publish/https
+        volume:
+          nocopy: false
+      - C:\Users\r.pingot\.vsdbg:/remote_debugger
+ sqlserver:
+   image: mcr.microsoft.com/mssql/server:2022-latest
+   restart: "no"
+   ports:
+     - 1433:1433
+   environment:
+      - MSSQL_SA_PASSWORD=Password123!
+      - ACCEPT_EULA=Y
+   volumes:
+      - ./db_data:/var/opt/mssql/data
+      - ./ms_logs:/var/opt/mssql/log
+      - ./ms_secrets:/var/opt/mssql/secrets
+volumes:
+  devpizza_party_apicert:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./devpizzasecrets
+      o: bind

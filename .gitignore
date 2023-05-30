@@ -528,3 +528,8 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+#Init docker data
+srv/ms_secrets/**
+srv/ms_logs/**
+srv/db_data/**
+srv/devpizzasecrets/**

@@ -4,7 +4,7 @@ using pizza_party_api.Models;
 
 namespace pizza_party_api.Repositories;
 
-public class CartRepository<T> : Repository<T> where T : class
+public class CartRepository<T> : Repository<T> where T : Cart
 {
 
 
@@ -14,8 +14,8 @@ public class CartRepository<T> : Repository<T> where T : class
 
     public async Task<Cart> GetCartByUserId(int userId, CancellationToken cancellationToken)
     {
-        return await _dbContext.Carts
-            .Include(c => c.Pizzas)
+        return await _dbSet
+            .Include(c => c.CartItems).ThenInclude(ci => ci.Pizza)
             .FirstOrDefaultAsync(c => c.UserId == userId, cancellationToken);
     }
 

@@ -8,15 +8,22 @@ import PizzaAmountPicker from "../../atoms/menu/PizzaAmountPicker";
 import PizzaAddToCart from "../../atoms/menu/PizzaAddToCart";
 import usePizzaAdd from "../../../hooks/pizzaAdd";
 
-type Props = { item: Pizza };
+type Props = {
+  item: Pizza;
+  setSelectedPizza: React.Dispatch<React.SetStateAction<Pizza | null>>;
+};
 
 const PizzaCard = (props: Props) => {
   const { amount, setAmount, handleClickAddToCart, error, setError } =
     usePizzaAdd();
 
+  const cardClickHandler = () => {
+    props.setSelectedPizza(props.item);
+  };
+
   return (
     <Card sx={{ m: 1, p: 1 }}>
-      <CardActionArea>
+      <CardActionArea onClick={cardClickHandler}>
         <PizzaImage imgLink={props.item.imageLink} />
         <CardContent>
           <div className={classes.textContainer}>

@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 
 type Props = {
-  title: string;
+  title: string | undefined;
 };
 
 const PizzaTitle = (props: Props) => {

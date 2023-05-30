@@ -1,14 +1,12 @@
 import React from "react";
 import Pizza from "../../../models/menu/Pizza";
-import PizzaLoaderCard from "../../molecules/menu/PizzaLoaderCard";
 import PizzaCard from "../../molecules/menu/PizzaCard";
-
 import { Grid } from "@mui/material";
-import { LoadingContext } from "../../../store/loading-context";
 
 type Props = {
   children?: React.ReactNode;
   pizzas: Pizza[];
+  setSelectedPizza: React.Dispatch<React.SetStateAction<Pizza | null>>;
 };
 
 const PizzaList = (props: Props) => {
@@ -17,7 +15,12 @@ const PizzaList = (props: Props) => {
       {props.pizzas &&
         props.pizzas.map((pizza) => (
           <Grid item xs={12} sm={6} md={4} key={pizza.id}>
-            {<PizzaCard item={pizza} />}
+            {
+              <PizzaCard
+                item={pizza}
+                setSelectedPizza={props.setSelectedPizza}
+              />
+            }
           </Grid>
         ))}
     </Grid>

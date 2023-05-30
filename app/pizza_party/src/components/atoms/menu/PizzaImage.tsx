@@ -2,7 +2,7 @@ import { Box, CardMedia } from "@mui/material";
 import classes from "./PizzaImage.module.scss";
 
 type Props = {
-  imgLink: string;
+  imgLink: string | undefined;
 };
 
 const PizzaImage = (

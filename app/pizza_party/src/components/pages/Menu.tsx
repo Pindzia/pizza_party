@@ -3,7 +3,7 @@ import PizzasMenu from "../templates/menu/PizzasMenu";
 import { Await, defer, json, useLoaderData } from "react-router-dom";
 import PizzaType from "../../models/menu/PizzaType";
 import Pizza from "../../models/menu/Pizza";
-import PizzaListLoader from "../organisms/menu/PizzaListLoader";
+import PizzaMenuLoader from "../templates/menu/PizzaMenuLoader";
 
 type Props = Record<string, never>;
 
@@ -12,7 +12,7 @@ type State = Record<string, never>;
 const Menu = (props: Props) => {
   const { pizzas } = useLoaderData();
   return (
-    <Suspense fallback={<PizzaListLoader />}>
+    <Suspense fallback={<PizzaMenuLoader />}>
       <Await resolve={pizzas}>
         {(pizzas) => <PizzasMenu pizzas={pizzas} />}
       </Await>

@@ -6,6 +6,7 @@ public interface IRepository<TEntity> where TEntity : class
     Task<TEntity> GetByIdAsync(object id, CancellationToken cancellationToken);
     Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken);
     Task UpdateAsync(object id, TEntity entity, CancellationToken cancellationToken);
+    Task UpdateEntityAsync(TEntity entity, CancellationToken cancellationToken);
     Task DeleteAsync(object id, CancellationToken cancellationToken);
     Task SaveAsync(CancellationToken cancellationToken);
     string GetPrimaryKeyName<TEntity>();

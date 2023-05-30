@@ -1,11 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Xunit;
-using System.Linq;
-using System.Threading;
 using pizza_party_api.Database;
 using pizza_party_api.Models;
 using pizza_party_api.Repositories;
-using System.Threading.Tasks;
 
 namespace pizza_party_api_test;
 

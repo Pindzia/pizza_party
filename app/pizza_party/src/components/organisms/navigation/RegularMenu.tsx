@@ -44,6 +44,8 @@ const RegularMenu = (props: Props) => {
               color: "inherit",
               "&.active": {
                 color: "red",
+                animation:
+                  "text-pop-up-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
               },
               display: "block",
             }}

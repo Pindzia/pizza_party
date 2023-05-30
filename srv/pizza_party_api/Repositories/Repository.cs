@@ -37,7 +37,13 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         _dbSet.Attach(OriginEntity);
         this.SetProperty(ref entity, this.GetPrimaryKeyName<TEntity>(), id);
         _dbContext.Entry(OriginEntity).CurrentValues.SetValues(entity);
-        //_dbContext.Entry(entity).State = EntityState.Modified;
+        await this.SaveAsync(cancellationToken);
+    }
+
+    public async Task UpdateEntityAsync(TEntity entity, CancellationToken cancellationToken)
+    {
+        _dbSet.Attach(entity);
+        _dbContext.Entry(entity).State = EntityState.Modified;
         await this.SaveAsync(cancellationToken);
     }
 
