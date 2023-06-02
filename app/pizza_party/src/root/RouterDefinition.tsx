@@ -5,7 +5,7 @@ import Menu, { loader as pizzaLoader } from "../components/pages/Menu";
 import Error from "../components/pages/Error";
 import NewAdress, {
   loader as adressLoader,
-} from "../components/pages/NewAdress";
+} from "../components/pages/NewAdress"; // ,
 import { action as saveAdressAction } from "../components/templates/adress/AdressForm";
 import EditAdress from "../components/pages/EditAdress";
 import { QueryClient } from "@tanstack/react-query";

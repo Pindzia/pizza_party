@@ -4,7 +4,11 @@ import { Link as RouterLink } from "react-router-dom";
 const Footer = () => {
   return (
     <Box
-      sx={{ bgcolor: "background.paper", p: 2 }}
+      sx={{
+        bgcolor: "background.paper",
+        p: 2,
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+      }}
       component="footer"
       bottom={0}
       position="fixed"

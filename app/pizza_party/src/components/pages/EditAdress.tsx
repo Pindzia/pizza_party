@@ -14,7 +14,9 @@ const EditAdress = () => {
     return <div>Adress not found</div>;
   }
 
-  return <AdressForm method="put" adress={specifiedAdress} />;
+  return (
+    <AdressForm title="Edit Adress" method="put" adress={specifiedAdress} />
+  );
 };
 
 export default EditAdress;

@@ -6,6 +6,7 @@ import { QueryClient } from "@tanstack/react-query";
 const NewAdress = () => {
   return (
     <AdressForm
+      title="New Adress"
       method="post"
       adress={{
         id: undefined,

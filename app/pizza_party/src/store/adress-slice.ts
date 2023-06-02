@@ -23,13 +23,19 @@ const adressSlice = createSlice({
     addAdress(state, { payload }: { payload: Adress }) {
       state.adressCollection.push(payload);
     },
-    replaceAdress(state, { payload }: { payload: Adress[] }) {
-      state.adressCollection = payload;
+    editAdress(state, { payload }: { payload: Adress }) {
+      const adressIndex = state.adressCollection.findIndex(
+        (adress) => adress.id === payload.id
+      );
+      state.adressCollection[adressIndex] = payload;
     },
     removeAdress(state, { payload }: { payload: number }) {
       state.adressCollection = state.adressCollection.filter(
         (adress) => adress.id !== payload
       );
+    },
+    replaceAdresses(state, { payload }: { payload: Adress[] }) {
+      state.adressCollection = payload;
     },
   },
 });
