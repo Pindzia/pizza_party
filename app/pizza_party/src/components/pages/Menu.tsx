@@ -41,7 +41,7 @@ async function loaderPizzas() {
       price: 10 + card,
       imageLink: "https://picsum.photos/120/120?random=" + card,
       listOfIngredients: ["Ingredient " + card],
-      type: PizzaType.Cheese,
+      type: PizzaType[PizzaType[card % 7] as keyof typeof PizzaType],
     };
   });
   return pizzas;

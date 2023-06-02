@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import PizzaDialogTitle from "../../atoms/menu/PizzaDialogTitle";
 import PizzaImage from "../../atoms/menu/PizzaImage";
+import PizzaDialogCloseButton from "../../atoms/menu/PizzaDialogCloseButton";
 
 type Props = {
   isOpen: boolean;
@@ -26,7 +27,9 @@ const PizzaDialog = (props: Props) => {
   };
   return createPortal(
     <Dialog fullScreen={fullScreen} open={props.isOpen} onClose={handleClose}>
-      <PizzaDialogTitle title={props.item?.name ? props.item.name : ""} />
+      <PizzaDialogTitle title={props.item?.name ? props.item.name : ""}>
+        <PizzaDialogCloseButton onCloseHandler={handleClose} />
+      </PizzaDialogTitle>
       <DialogContent>
         <Box
           noValidate
