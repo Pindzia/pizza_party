@@ -1,5 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Adress } from "../models/adress/Adress";
+
+type Adress = {
+  id: number;
+  name: string;
+  street: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  phone: string;
+};
 
 type AdressState = {
   adress: Adress | null;
