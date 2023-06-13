@@ -16,6 +16,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout children={null} />,
+    id: "root",
     loader: adressLoader(queryClient),
     children: [
       { path: "/home", element: <Home /> },

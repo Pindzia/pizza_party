@@ -6,9 +6,7 @@ import { uiActions } from "../../../store/ui-slice";
 import { RootState } from "../../../store";
 import NoteModel from "../../../models/ui/notification";
 
-type Props = {};
-
-const NotificationSnackbar = (props: Props) => {
+const NotificationSnackbar = () => {
   const [open, setOpen] = React.useState(false);
   const lastNotification = useSelector<RootState, NoteModel | null>(
     (state: RootState) => state.ui.notification

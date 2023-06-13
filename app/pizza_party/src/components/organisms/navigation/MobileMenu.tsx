@@ -3,6 +3,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import MobileMenuButton from "../../molecules/navigation/MobileMenuButton";
 import MobileMenuNavLink from "../../molecules/navigation/MobileMenuNavLink";
+import AdressSelector from "../../templates/adress/AdressSelector";
 
 type Props = {
   handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
@@ -47,10 +48,10 @@ const MobileMenu = (props: Props) => {
         </Menu>
       </Box>
       <Icon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
-        <img src="src/assets/pizza_logo.png" alt="pizza icon" />
+        <img src="/src/assets/pizza_logo.png" alt="pizza icon" />
       </Icon>
       <Typography
-        variant="h5"
+        variant="h6"
         noWrap
         component={NavLink}
         to="/"
@@ -67,6 +68,9 @@ const MobileMenu = (props: Props) => {
       >
         Pizza Party
       </Typography>
+      <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
+        <AdressSelector />
+      </Box>
     </>
   );
 };

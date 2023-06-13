@@ -33,6 +33,7 @@ async function loaderAdresses(queryClient: QueryClient) {
     const resData = await response.json();
     return resData.events;
   }*/
+
   const enumerator = Array.from(Array(30).keys());
   const adresses = enumerator.map((adressid: number): Adress => {
     return {

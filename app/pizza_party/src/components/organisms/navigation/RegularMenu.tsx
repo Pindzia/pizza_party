@@ -1,7 +1,7 @@
 import { Box, Button, Icon, Typography } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
-
+import AdressSelector from "../../templates/adress/AdressSelector";
 type Props = {
   handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
   handleCloseNavMenu: () => void;
@@ -13,7 +13,7 @@ const RegularMenu = (props: Props) => {
   return (
     <>
       <Icon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
-        <img src="src/assets/pizza_logo.png" alt="pizza icon" />
+        <img src="/src/assets/pizza_logo.png" alt="pizza icon" />
       </Icon>
       <Typography
         variant="h6"
@@ -53,6 +53,14 @@ const RegularMenu = (props: Props) => {
             {page}
           </Button>
         ))}
+      </Box>
+      <Box
+        sx={{
+          display: { xs: "none", md: "flex" },
+          flexDirection: "row-reverse",
+        }}
+      >
+        <AdressSelector />
       </Box>
     </>
   );

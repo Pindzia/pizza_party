@@ -5,7 +5,6 @@ import { SpeedDialIcon, useScrollTrigger } from "@mui/material";
 import classes from "./ScrollUpButtonDial.module.scss";
 
 const ScrollUpButtonDial = () => {
-  const element = document.getElementById("topElement");
   const onClickHandler = () => {
     const element = document.getElementById("topElement");
     element && element.scrollIntoView({ behavior: "smooth" });
