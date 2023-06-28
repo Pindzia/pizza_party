@@ -7,4 +7,5 @@ export type Adress = {
   zipCode: string;
   country: string;
   phoneNumber: string;
+  [propKey: string]: string | number | undefined;
 };

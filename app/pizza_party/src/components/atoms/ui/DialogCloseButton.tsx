@@ -5,7 +5,7 @@ type Props = {
   onCloseHandler: () => void;
 };
 
-const PizzaDialogCloseButton = (props: Props) => {
+const DialogCloseButton = (props: Props) => {
   return (
     <IconButton
       aria-label="close"
@@ -22,4 +22,4 @@ const PizzaDialogCloseButton = (props: Props) => {
   );
 };
 
-export default PizzaDialogCloseButton;
+export default DialogCloseButton;

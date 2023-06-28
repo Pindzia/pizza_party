@@ -1,11 +1,21 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { CartPushItem, cartActions } from "../store/cart-slice";
 
 const usePizzaAdd = () => {
   const [amount, setAmount] = useState(1);
   const [error, setError] = useState(false);
-  const handleClickAddToCart = () => {
+  const dispatch = useDispatch();
+  const handleClickAddToCart = (cartItem: CartPushItem) => {
     if (error) return;
-    console.log("Add to cart");
+    Array(amount)
+      .fill(0)
+      .forEach(() => {
+        dispatch(cartActions.addItemToCart(cartItem));
+      });
+  };
+  const handleRemoveFromCart = (id: number) => {
+    dispatch(cartActions.removeItemFromCart(id));
   };
   return {
     amount,
@@ -13,6 +23,7 @@ const usePizzaAdd = () => {
     error,
     setError,
     handleClickAddToCart,
+    handleRemoveFromCart,
   };
 };
 

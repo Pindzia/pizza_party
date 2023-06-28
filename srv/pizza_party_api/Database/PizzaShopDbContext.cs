@@ -40,6 +40,71 @@ public class PizzaShopDbContext : DbContext
                 );
             // Configure other properties and relationships
         });
+        modelBuilder.Entity<Pizza>().HasData(
+        new Pizza()
+        {
+            Name = "4 in 1",
+            Description = "Four tasty pizzas in one. \"Four cheese\" ,\"Minced\" ,\"Schroomy\" ,\"Basilicana\" ",
+            listOfIngredients = new[]
+            {
+                "Mozarella",
+                "Gouda",
+                "Grana Padano",
+                "Gorgonzola",
+                "Ricotta",
+                "Mushrooms",
+                "Basil",
+                "Salami",
+                "Olives",
+                "Onions",
+                "Minced meat"
+            },
+            ImageUrl = "/assets/pizzas/4in1.png",
+            Price = 50.99m,
+            TypeOfPizza = TypeOfPizza.Meat | TypeOfPizza.ThinCrust | TypeOfPizza.Vegetarian | TypeOfPizza.Cheese,
+        },
+         new Pizza()
+         {
+             Name = "Argurella",
+             Description = "Tasty fresh pizza ",
+             listOfIngredients = new[]
+            {
+                "Argula",
+                "Salami",
+                "Mozarella",
+            },
+             ImageUrl = "/assets/pizzas/argula_correct.png",
+             Price = 11.99m,
+             TypeOfPizza = TypeOfPizza.Meat | TypeOfPizza.ThinCrust
+         },
+         new Pizza()
+         {
+             Name = "Argurella",
+             Description = "Tasty fresh pizza with classic bit of argula",
+             listOfIngredients = new[]
+            {
+                "Argula",
+                "Salami",
+                "Mozarella",
+            },
+             ImageUrl = "/assets/pizzas/argula_correct.png",
+             Price = 11.99m,
+             TypeOfPizza = TypeOfPizza.Meat | TypeOfPizza.ThinCrust
+         },
+         new Pizza()
+         {
+             Name = "Basilicana",
+             Description = "Classic ",
+             listOfIngredients = new[]
+            {
+                "Basil",
+                "Salami",
+                "Gorgonzola",
+            },
+             ImageUrl = "/assets/pizzas/argula_correct.png",
+             Price = 11.99m,
+             TypeOfPizza = TypeOfPizza.Meat | TypeOfPizza.ThinCrust
+         });
 
         modelBuilder.Entity<Cart>(entity =>
         {

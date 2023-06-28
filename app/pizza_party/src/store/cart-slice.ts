@@ -6,12 +6,15 @@ type CartState = {
   changed: boolean;
 };
 
-type CartItem = {
+export type CartItem = CartPushItem & {
+  quantity: number;
+  totalPrice: number;
+};
+
+export type CartPushItem = {
   id: number;
   name: string;
   price: number;
-  quantity: number;
-  totalPrice: number;
 };
 
 const initialState: CartState = {
@@ -24,7 +27,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: initialState,
   reducers: {
-    addItemToCart(state, { payload }: { payload: CartItem }) {
+    addItemToCart(state, { payload }: { payload: CartPushItem }) {
       const newItem = payload;
       const existingItem = state.items.find((item) => item.id === newItem.id);
       state.totalQuantity++;

@@ -5,8 +5,6 @@ import { Container } from "@mui/material";
 import { Outlet, useRouteLoaderData } from "react-router-dom";
 import ScrollUpButtonDial from "../components/organisms/ui/ScrollUpButtonDial";
 import NotificationSnackbar from "../components/organisms/ui/NotificationSnackbar";
-import { Await } from "react-router-dom";
-import { Suspense } from "react";
 import { useDispatch } from "react-redux";
 import { adressActions } from "../store/adress-slice";
 import { Adress } from "../models/adress/Adress";

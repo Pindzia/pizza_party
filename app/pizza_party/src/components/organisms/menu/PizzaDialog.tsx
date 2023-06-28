@@ -1,16 +1,11 @@
 import { createPortal } from "react-dom";
 import Pizza from "../../../models/menu/Pizza";
-import { useTheme } from "@mui/material/styles";
-import {
-  Box,
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  useMediaQuery,
-} from "@mui/material";
-import PizzaDialogTitle from "../../atoms/menu/PizzaDialogTitle";
+import { Box, Dialog, DialogContent } from "@mui/material";
 import PizzaImage from "../../atoms/menu/PizzaImage";
-import PizzaDialogCloseButton from "../../atoms/menu/PizzaDialogCloseButton";
+import useFullscreenDialogLogic from "../../../hooks/fullscreenDialogLogic";
+import SpecificDialogTitle from "../../atoms/ui/SpecificDialogTitle";
+import PizzaDialogDescription from "../../molecules/menu/PizzaDialogDescription";
+import { Fullscreen } from "@mui/icons-material";
 
 type Props = {
   isOpen: boolean;
@@ -19,32 +14,27 @@ type Props = {
 };
 
 const PizzaDialog = (props: Props) => {
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const { fullScreen } = useFullscreenDialogLogic();
 
   const handleClose = () => {
     props.handleDialogClose();
   };
   return createPortal(
     <Dialog fullScreen={fullScreen} open={props.isOpen} onClose={handleClose}>
-      <PizzaDialogTitle title={props.item?.name ? props.item.name : ""}>
-        <PizzaDialogCloseButton onCloseHandler={handleClose} />
-      </PizzaDialogTitle>
-      <DialogContent>
-        <Box
-          noValidate
-          component="form"
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            m: "auto",
-            width: "fit-content",
-          }}
-        >
+      <Box width={fullScreen ? 1 : 350}>
+        <SpecificDialogTitle
+          title={props.item?.name ? props.item.name : ""}
+          onCloseHandler={handleClose}
+        />
+        <DialogContent>
           <PizzaImage imgLink={props.item?.imageLink} />
-        </Box>
-      </DialogContent>
-      <DialogContentText>{props.item?.description}</DialogContentText>
+        </DialogContent>
+        <PizzaDialogDescription
+          description={props.item?.description}
+          ingridients={props.item?.listOfIngredients}
+          price={props.item?.price}
+        />
+      </Box>
     </Dialog>,
     document.getElementById("modal-root") as HTMLElement
   );

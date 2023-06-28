@@ -7,6 +7,7 @@ import PizzaPrice from "../../atoms/menu/PizzaPrice";
 import PizzaAmountPicker from "../../atoms/menu/PizzaAmountPicker";
 import PizzaAddToCart from "../../atoms/menu/PizzaAddToCart";
 import usePizzaAdd from "../../../hooks/pizzaAdd";
+import { CartPushItem } from "../../../store/cart-slice";
 
 type Props = {
   item: Pizza;
@@ -19,6 +20,14 @@ const PizzaCard = (props: Props) => {
 
   const cardClickHandler = () => {
     props.setSelectedPizza(props.item);
+  };
+  const cartItem: CartPushItem = {
+    id: props.item.id,
+    name: props.item.name ?? "",
+    price: props.item.price,
+  };
+  const handlerWrapper = () => {
+    handleClickAddToCart(cartItem);
   };
 
   return (
@@ -41,7 +50,7 @@ const PizzaCard = (props: Props) => {
           error={error}
           setError={setError}
         />
-        <PizzaAddToCart onAddToCartClickHandler={handleClickAddToCart} />
+        <PizzaAddToCart onAddToCartClickHandler={handlerWrapper} />
       </CardActions>
     </Card>
   );

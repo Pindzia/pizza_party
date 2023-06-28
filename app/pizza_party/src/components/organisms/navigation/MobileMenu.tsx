@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import MobileMenuButton from "../../molecules/navigation/MobileMenuButton";
 import MobileMenuNavLink from "../../molecules/navigation/MobileMenuNavLink";
 import AdressSelector from "../../templates/adress/AdressSelector";
+import Cart from "../../templates/cart/Cart";
 
 type Props = {
   handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
@@ -69,6 +70,7 @@ const MobileMenu = (props: Props) => {
         Pizza Party
       </Typography>
       <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
+        <Cart />
         <AdressSelector />
       </Box>
     </>

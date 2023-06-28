@@ -1,20 +1,37 @@
-import { useNavigate } from "react-router-dom";
 import { Adress } from "../../../models/adress/Adress";
 import { Typography } from "@mui/material";
+import React, { useImperativeHandle, ForwardRefRenderFunction } from "react";
+import { ForwardedRef } from "react";
 
 type Props = {
   adress: Adress | null;
-  onClickHandler: () => void;
+  onClickHandler: (value: boolean) => void;
 };
 
-const AdressSelectedMenuView = (props: Props) => {
-  const title = props.adress ? props.adress.name : "No adress selected";
+export type WidthInterface = {
+  getWidth: () => number;
+};
+
+const AdressSelectedMenuView: ForwardRefRenderFunction<
+  WidthInterface,
+  Props
+> = (props: Props, ref: ForwardedRef<WidthInterface>) => {
+  const title = props.adress
+    ? props.adress.name
+    : "No adress selected. Click here to select one.";
   const onClickHandler = () => {
-    props.onClickHandler();
+    props.onClickHandler(true);
   };
+  const typographyRef = React.useRef<HTMLSpanElement>(null);
+  useImperativeHandle(ref, () => ({
+    getWidth() {
+      return typographyRef.current?.offsetWidth ?? 200;
+    },
+  }));
   return (
     <Typography
       variant="h6"
+      ref={typographyRef}
       sx={{
         position: "absolute",
         whiteSpace: "nowrap",
@@ -28,5 +45,6 @@ const AdressSelectedMenuView = (props: Props) => {
     </Typography>
   );
 };
+const AdressSelectedMenuViewRef = React.forwardRef(AdressSelectedMenuView);
 
-export default AdressSelectedMenuView;
+export default AdressSelectedMenuViewRef;

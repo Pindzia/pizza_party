@@ -7,8 +7,11 @@ import NewAdress, {
   loader as adressLoader,
 } from "../components/pages/NewAdress"; // ,
 import { action as saveAdressAction } from "../components/templates/adress/AdressForm";
+import Order from "../components/pages/Order";
 import EditAdress from "../components/pages/EditAdress";
 import { QueryClient } from "@tanstack/react-query";
+import AdressDisplay from "../components/organisms/order/AdressDisplay";
+import CartShower from "../components/organisms/order/CartShower";
 
 export const queryClient = new QueryClient();
 
@@ -30,6 +33,29 @@ const router = createBrowserRouter([
             path: "edit/:id",
             element: <EditAdress />,
             action: saveAdressAction(queryClient),
+          },
+        ],
+      },
+      {
+        path: "/order",
+        element: <Order />,
+        children: [
+          {
+            path: "",
+            index: true,
+            element: <AdressDisplay />,
+          },
+          {
+            path: "adress",
+            element: <AdressDisplay />,
+          },
+          {
+            path: "cart",
+            element: <CartShower />,
+          },
+          {
+            path: "cart",
+            element: <CartShower />,
           },
         ],
       },

@@ -2,6 +2,7 @@ import { Box, Button, Icon, Typography } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import AdressSelector from "../../templates/adress/AdressSelector";
+import Cart from "../../templates/cart/Cart";
 type Props = {
   handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
   handleCloseNavMenu: () => void;
@@ -61,6 +62,7 @@ const RegularMenu = (props: Props) => {
         }}
       >
         <AdressSelector />
+        <Cart />
       </Box>
     </>
   );

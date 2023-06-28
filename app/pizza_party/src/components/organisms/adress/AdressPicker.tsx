@@ -7,6 +7,7 @@ import { Adress } from "../../../models/adress/Adress";
 import AdressListItem from "../../molecules/adress/AdressListItem";
 import Divider from "@mui/material/Divider";
 import AddressAddListItem from "../../molecules/adress/AdressAddListItem";
+import AdressList from "./AdressList";
 
 type Props = {
   selectedAdress: Adress | null;
@@ -33,17 +34,11 @@ const AdressPicker = (props: Props) => {
       onOpen={() => ctx.onInteraction(true)}
     >
       <Box>
-        <List>
-          {adressList &&
-            adressList.map((adress: Adress) => (
-              <AdressListItem
-                key={adress.id}
-                adress={adress}
-                onChangeAdressHandler={changeAdress}
-                isSelected={props.selectedAdress?.name === adress.name}
-              />
-            ))}
-        </List>
+        <AdressList
+          adressList={adressList}
+          selectedAdress={props.selectedAdress}
+          changeAdress={changeAdress}
+        />
         <Divider />
         <List>
           <AddressAddListItem key="addition" />
