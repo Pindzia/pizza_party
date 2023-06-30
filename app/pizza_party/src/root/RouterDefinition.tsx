@@ -7,6 +7,7 @@ import NewAdress, {
   loader as adressLoader,
 } from "../components/pages/NewAdress"; // ,
 import { action as saveAdressAction } from "../components/templates/adress/AdressForm";
+import { action as saveOrderAction } from "../components/pages/Order";
 import Order from "../components/pages/Order";
 import EditAdress from "../components/pages/EditAdress";
 import { QueryClient } from "@tanstack/react-query";
@@ -22,31 +23,26 @@ const router = createBrowserRouter([
     id: "root",
     loader: adressLoader(queryClient),
     children: [
-      { path: "/home", element: <Home /> },
+      { path: "/home", index: true, element: <Home /> },
       { path: "/menu", element: <Menu />, loader: pizzaLoader },
       {
         path: "/adress",
         element: <NewAdress />,
         action: saveAdressAction(queryClient),
-        children: [
-          {
-            path: "edit/:id",
-            element: <EditAdress />,
-            action: saveAdressAction(queryClient),
-          },
-        ],
+      },
+      {
+        path: "/adress/edit/:id",
+        element: <EditAdress />,
+        action: saveAdressAction(queryClient),
       },
       {
         path: "/order",
         element: <Order />,
+        action: saveOrderAction,
         children: [
           {
-            path: "",
-            index: true,
-            element: <AdressDisplay />,
-          },
-          {
             path: "adress",
+            index: true,
             element: <AdressDisplay />,
           },
           {
@@ -54,7 +50,11 @@ const router = createBrowserRouter([
             element: <CartShower />,
           },
           {
-            path: "cart",
+            path: "payment",
+            element: <CartShower />,
+          },
+          {
+            path: "summary",
             element: <CartShower />,
           },
         ],

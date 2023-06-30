@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { Typography } from "@mui/material";
 import { QueryClient } from "@tanstack/react-query";
 import { Adress } from "../../../models/adress/Adress";
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import AdressHiddenIdInput from "../../atoms/adress/AdressHiddenIdInput";
 import * as yup from "yup";
@@ -11,6 +11,7 @@ import AdressTextInput from "../../atoms/adress/AdressTextInput";
 import AdressFormGroup from "../../molecules/adress/AdressFormGroup";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../../../store/ui-slice";
+import { adressActions } from "../../../store/adress-slice";
 
 type Props = {
   method: string;
@@ -31,11 +32,13 @@ const validationSchema = yup.object({
 const AdressForm = (props: Props) => {
   const method = props.method === "post" ? "post" : "put";
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: { ...props.adress },
     validationSchema: validationSchema,
-    onSubmit: (values: any) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: (values: Adress) => {
+      if (method === "post") dispatch(adressActions.addAdress(values));
+      else dispatch(adressActions.editAdress(values));
       dispatch(
         uiActions.showNotification({
           fromWhere: "New Adress",
@@ -44,6 +47,7 @@ const AdressForm = (props: Props) => {
           title: "Adress saved",
         })
       );
+      navigate(-1);
     },
   });
   return (
@@ -177,7 +181,9 @@ export default AdressForm;
 export const action =
   (queryClient: QueryClient) =>
   async ({ request, params }: { request: any; params: any }) => {
-    /* const data = await request.formData();
+    console.log("params", params);
+    console.log("request", request);
+    const data = await request.formData();
     const adress = {
       id: data.get("id"),
       street: data.get("street"),
@@ -185,15 +191,8 @@ export const action =
       zipCode: data.get("zipCode"),
       country: data.get("country"),
     };
-    const response = await fetch("https://localhost/adresses", {
-      method: params.method,
-      body: JSON.stringify(adress),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+
     if (!response.ok) {
       throw new Error("Something went wrong!");
     }
-    queryClient.invalidateQueries({ queryKey: ["adresses"] });*/
   };

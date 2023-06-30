@@ -1,10 +1,9 @@
 import { List, SwipeableDrawer, Box } from "@mui/material";
-import AdressContext from "../../../store/adress-context";
+import AdressContext from "../../../contexts/adress-context";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { Adress } from "../../../models/adress/Adress";
-import AdressListItem from "../../molecules/adress/AdressListItem";
 import Divider from "@mui/material/Divider";
 import AddressAddListItem from "../../molecules/adress/AdressAddListItem";
 import AdressList from "./AdressList";

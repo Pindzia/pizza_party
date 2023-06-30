@@ -4,12 +4,15 @@ import { Paper } from "@mui/material";
 import { Box } from "@mui/material";
 import { Button } from "@mui/material";
 import AdressVariableText from "../../atoms/adress/AdressVariableText";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import OrderStepBox from "../../templates/order/OrderStepBox";
 import useOrderContext from "../../../contexts/order-context";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AdressDialogPicker from "./AdressDialogPicker";
+import { useFetcher, useParams } from "react-router-dom";
+import { orderActions } from "../../../store/order-slice";
+import OrderModel from "../../../models/order/order";
 
 const AdressLabels: { [propKey: string]: string } = {
   name: "Name",
@@ -22,7 +25,17 @@ const AdressLabels: { [propKey: string]: string } = {
 };
 
 const AdressDisplay = () => {
+  const param = useParams<{ id: string }>();
+  const dispatch = useDispatch();
+
+  const fetcher = useFetcher();
+  const { data, state } = fetcher;
+  const ref = useRef(null);
   const ctx = useOrderContext();
+
+  const currentOrder = useSelector<RootState, OrderModel | null>(
+    (state: RootState) => state.order.currentOrder
+  );
   const selectedAdress = useSelector<RootState, Adress | null>(
     (state: RootState) => state.adress.adress
   );
@@ -41,6 +54,23 @@ const AdressDisplay = () => {
     setChoosenAdress(adress);
     setOpen(false);
   };
+  useEffect(() => {
+    if (adressList.find((x) => x.id === choosenAdress?.id) === undefined) {
+      setChoosenAdress(null);
+    }
+  }, [adressList, choosenAdress?.id]);
+
+  useEffect(() => {
+    if (choosenAdress) {
+      dispatch(orderActions.setAdress(choosenAdress));
+    }
+  }, [choosenAdress, dispatch]);
+  useEffect(() => {
+    if (state === "idle" && data && ctx.id !== data?.name) {
+      ctx.setId(data?.name);
+      ctx.handleNext();
+    }
+  }, [data, state, ctx]);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: 1 }}>
@@ -52,7 +82,7 @@ const AdressDisplay = () => {
               bottom: 0,
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-around",
+              justifyContent: "space-between",
               height: 1,
               m: 2,
             }}
@@ -62,16 +92,10 @@ const AdressDisplay = () => {
               sx={{ display: { xs: "none", md: "hidden" } }}
             ></Button>
             <Button
-              onClick={() => {
-                console.log("AdressDisplay");
-              }}
-            >
-              Select Adress
-            </Button>
-            <Button
               sx={{ display: { xs: "none", md: "block" } }}
               onClick={() => {
-                ctx.handleNext();
+                if (!currentOrder?.payment) ref.current?.click();
+                else ctx.handleNext();
               }}
             >
               NEXT
@@ -119,6 +143,15 @@ const AdressDisplay = () => {
         changeAdress={changeAdress}
         selectedAdress={choosenAdress}
       />
+      <fetcher.Form method="post" action="/order">
+        <input
+          type="hidden"
+          name="orderData"
+          id="orderData"
+          value={JSON.stringify(currentOrder)}
+        />
+        <button ref={ref}></button>
+      </fetcher.Form>
     </Box>
   );
 };

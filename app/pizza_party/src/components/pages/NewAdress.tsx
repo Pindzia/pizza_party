@@ -2,14 +2,20 @@ import { defer } from "react-router-dom";
 import { Adress } from "../../models/adress/Adress";
 import AdressForm from "../templates/adress/AdressForm";
 import { QueryClient } from "@tanstack/react-query";
+import AdressService from "../../utils/services/adress-service";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const NewAdress = () => {
+  const newId = useSelector<RootState, number>(
+    (state) => state.adress.adressCollection.length + 1
+  );
   return (
     <AdressForm
       title="New Adress"
       method="post"
       adress={{
-        id: undefined,
+        id: newId,
         name: "",
         surname: "",
         street: "",
@@ -24,30 +30,14 @@ const NewAdress = () => {
 
 export default NewAdress;
 
-async function loaderAdresses(queryClient: QueryClient) {
-  /*
-  const response = await fetch("http://localhost:8080/events");
-  if (!response.ok) {
-    return json({ message: "Loading events failed" }, { status: 500 });
-  } else {
-    const resData = await response.json();
-    return resData.events;
-  }*/
+async function loaderAdresses(
+  queryClient: QueryClient
+): Promise<{ adress: Adress | null; adresses: Adress[] | null }> {
+  const adressService = new AdressService();
+  const adressesLocal = adressService.getAdresses();
+  const selectedAdressLocal = adressService.getSelectedAdress();
 
-  const enumerator = Array.from(Array(30).keys());
-  const adresses = enumerator.map((adressid: number): Adress => {
-    return {
-      id: adressid,
-      name: "Name " + adressid,
-      surname: "Surname " + adressid,
-      street: "Adress " + adressid,
-      city: "City " + adressid,
-      zipCode: "ZipCode " + adressid,
-      country: "Country " + adressid,
-      phoneNumber: "PhoneNumber " + adressid,
-    };
-  });
-  return adresses;
+  return { adress: selectedAdressLocal, adresses: adressesLocal };
 }
 
 export const loader = (queryClient: QueryClient) => async () => {

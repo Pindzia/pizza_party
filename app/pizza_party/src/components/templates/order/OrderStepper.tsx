@@ -8,8 +8,10 @@ import {
 import { Typography } from "@mui/material";
 import RegularStepper from "../../organisms/order/RegularStepper";
 import MobileOrderStepper from "../../organisms/order/MobileStepper";
+import { useState } from "react";
 
 const OrderStepper = () => {
+  const [id, setId] = useState("");
   const navigate = useNavigate();
   const activeStep = useActiveStep();
 
@@ -29,12 +31,16 @@ const OrderStepper = () => {
         Order
       </Typography>
       <RegularStepper
+        id={id}
+        setId={setId}
         activeStep={activeStep}
         handleNext={handleNext}
         handleBack={handleBack}
       />
       <MobileOrderStepper
         maxSteps={4}
+        id={id}
+        setId={setId}
         activeStep={activeStep}
         handleNext={handleNext}
         handleBack={handleBack}

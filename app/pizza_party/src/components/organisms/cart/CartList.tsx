@@ -5,7 +5,7 @@ import CartDrawerItem from "./CartDrawerItem";
 type Props = {
   cartList: CartItem[];
 };
-
+let key = 0;
 const CartList = (props: Props) => {
   return (
     <List>
@@ -13,8 +13,9 @@ const CartList = (props: Props) => {
         props.cartList.length > 0 &&
         props.cartList.map((cartItem: CartItem) => (
           <>
-            <CartDrawerItem item={cartItem} />
+            <CartDrawerItem key={key++} item={cartItem} />
             <Divider
+              key={key++}
               sx={{
                 ml: 2,
                 mr: 2,

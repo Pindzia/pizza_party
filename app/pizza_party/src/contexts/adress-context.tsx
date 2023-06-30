@@ -1,6 +1,6 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import { useDispatch } from "react-redux";
-import { adressActions } from "./adress-slice";
+import { adressActions } from "../store/adress-slice";
 import { Adress } from "../models/adress/Adress";
 import { useDrawerHandlerLogic } from "../hooks/drawerHandlerLogic";
 

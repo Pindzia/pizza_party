@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchCartData } from "./cart-actions";
 
-type CartState = {
+export type CartState = {
   items: CartItem[];
   totalQuantity: number;
   changed: boolean;
@@ -65,6 +66,18 @@ const cartSlice = createSlice({
       state.items = payload.items;
       state.totalQuantity = payload.totalQuantity;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCartData.fulfilled, (state, action) => {
+        state.items = action.payload.items || [];
+        state.totalQuantity = action.payload.totalQuantity;
+      })
+      .addCase(fetchCartData.rejected, (state, action) => {
+        state.items = [];
+        state.totalQuantity = 0;
+        state.changed = false;
+      });
   },
 });
 

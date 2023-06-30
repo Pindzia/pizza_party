@@ -1,28 +1,26 @@
-import React from "react";
+import { useEffect } from "react";
 import Navigator from "./Navigator";
 import Footer from "./Footer";
 import { Container } from "@mui/material";
 import { Outlet, useRouteLoaderData } from "react-router-dom";
 import ScrollUpButtonDial from "../components/organisms/ui/ScrollUpButtonDial";
 import NotificationSnackbar from "../components/organisms/ui/NotificationSnackbar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { adressActions } from "../store/adress-slice";
 import { Adress } from "../models/adress/Adress";
+import { AppDispatch, RootState } from "../store";
+import useCartLoader from "../hooks/cartLoader";
+import useAdressLoader from "../hooks/adressLoader";
 
 type Props = {
   children: React.ReactNode;
 };
 
 const RootLayout = (props: Props) => {
-  const { adresses } = useRouteLoaderData("root");
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    async function loadAdresses() {
-      const result = (await adresses) as Adress[];
-      dispatch(adressActions.replaceAdresses(result));
-    }
-    loadAdresses();
-  }, [adresses, dispatch]);
+  const dispatch = useDispatch<AppDispatch>();
+  useCartLoader(dispatch);
+  useAdressLoader(dispatch);
+
   return (
     <>
       <Navigator />

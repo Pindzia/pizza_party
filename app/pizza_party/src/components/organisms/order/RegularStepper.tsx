@@ -1,8 +1,11 @@
-import { Box, Step, StepLabel, Stepper } from "@mui/material";
+import { Box } from "@mui/material";
+import { Step, StepLabel, Stepper } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 type Props = {
   activeStep: number;
+  id: string;
+  setId: (value: string) => void;
   handleNext: () => void;
   handleBack: () => void;
 };
@@ -27,6 +30,8 @@ const RegularStepper = (props: Props) => {
       <Box sx={{ height: 1, m: 2 }}>
         <Outlet
           context={{
+            id: props.id,
+            setId: props.setId,
             handleBack: props.handleBack,
             handleNext: props.handleNext,
           }}

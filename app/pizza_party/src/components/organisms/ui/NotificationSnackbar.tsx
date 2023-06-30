@@ -32,6 +32,11 @@ const NotificationSnackbar = () => {
       }}
     >
       <MuiAlert
+        title={
+          lastNotification && lastNotification.title
+            ? lastNotification.title
+            : "Notification"
+        }
         severity={(lastNotification && lastNotification.type) ?? "info"}
         sx={{ width: "100%" }}
       >

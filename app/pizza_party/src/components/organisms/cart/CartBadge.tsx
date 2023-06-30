@@ -15,7 +15,10 @@ const CartBadge = (props: Props) => {
     props.onClick(true);
   };
   return (
-    <Box sx={{ display: "flex", mr: 1 }} onClick={handleClick}>
+    <Box
+      sx={{ display: "flex", mr: 1, "&:hover": { cursor: "pointer" } }}
+      onClick={handleClick}
+    >
       <Badge badgeContent={totalQuantity} color="warning">
         <ShoppingCartIcon sx={{ fontSize: 35 }} />
       </Badge>

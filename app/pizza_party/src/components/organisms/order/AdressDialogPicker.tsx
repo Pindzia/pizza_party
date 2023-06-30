@@ -1,9 +1,10 @@
-import { Dialog } from "@mui/material";
+import { Dialog, Divider } from "@mui/material";
 import { Adress } from "../../../models/adress/Adress";
 import AdressList from "../adress/AdressList";
 import useFullscreenDialogLogic from "../../../hooks/fullscreenDialogLogic";
 import { Box, DialogContent } from "@mui/material";
 import SpecificDialogTitle from "../../atoms/ui/SpecificDialogTitle";
+import AdressAddListItem from "../../molecules/adress/AdressAddListItem";
 
 type Props = {
   open: boolean;
@@ -32,6 +33,8 @@ const AdressDialogPicker = (props: Props) => {
             selectedAdress={props.selectedAdress}
             changeAdress={props.changeAdress}
           />
+          <Divider />
+          <AdressAddListItem />
         </Box>
       </DialogContent>
     </Dialog>

@@ -104,6 +104,20 @@ public class PizzaShopDbContext : DbContext
              ImageUrl = "/assets/pizzas/argula_correct.png",
              Price = 11.99m,
              TypeOfPizza = TypeOfPizza.Meat | TypeOfPizza.ThinCrust
+         },
+         new Pizza()
+         {
+             Name = "Basilicana",
+             Description = "Classic ",
+             listOfIngredients = new[]
+            {
+                "Basil",
+                "Salami",
+                "Gorgonzola",
+            },
+             ImageUrl = "/assets/pizzas/argula_correct.png",
+             Price = 11.99m,
+             TypeOfPizza = TypeOfPizza.Meat | TypeOfPizza.ThinCrust
          });
 
         modelBuilder.Entity<Cart>(entity =>

@@ -8,7 +8,7 @@ import AdressIcon from "../../atoms/adress/AdressIcon";
 import React, { useContext, useLayoutEffect, useState } from "react";
 import { Collapse } from "@mui/material";
 import useWindowSize from "../../../hooks/windowSize";
-import AdressContext from "../../../store/adress-context";
+import AdressContext from "../../../contexts/adress-context";
 
 type Props = {
   adress: Adress | null;

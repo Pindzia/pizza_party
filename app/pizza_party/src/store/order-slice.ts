@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import OrderModel from "../models/order/order";
+import { Adress } from "../models/adress/Adress";
+import { CartItem } from "./cart-slice";
 
 type OrderState = {
   currentOrder: OrderModel | null;
@@ -21,6 +23,16 @@ const orderSlice = createSlice({
     modifyOrder(state, { payload }: { payload: OrderModel }) {
       state.currentOrder = payload;
     },
+    setAdress(state, { payload }: { payload: Adress }) {
+      if (state.currentOrder) {
+        state.currentOrder.address = payload;
+      }
+    },
+    setCart(state, { payload }: { payload: CartItem[] }) {
+      if (state.currentOrder) {
+        state.currentOrder.cartItems = payload;
+      }
+    },
     completeOrder(state) {
       if (state.currentOrder) {
         state.orders.push(state.currentOrder);
@@ -30,6 +42,6 @@ const orderSlice = createSlice({
   },
 });
 
-export const uiActions = orderSlice.actions;
+export const orderActions = orderSlice.actions;
 
 export default orderSlice.reducer;

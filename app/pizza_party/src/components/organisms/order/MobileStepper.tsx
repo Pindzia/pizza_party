@@ -1,17 +1,20 @@
-import { Box, Button, MobileStepper } from "@mui/material";
+import { Box } from "@mui/material";
+import { MobileStepper, Button } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 
 type Props = {
   maxSteps: number;
   activeStep: number;
+  id: string;
+  setId: (value: string) => void;
   handleNext: () => void;
   handleBack: () => void;
 };
 
 const MobileOrderStepper = (props: Props) => {
   return (
-    <>
+    <Box sx={{ display: { xs: "contents", md: "none" } }}>
       <Box sx={{ height: 1, m: 2 }}>
         <Outlet
           context={{
@@ -45,7 +48,7 @@ const MobileOrderStepper = (props: Props) => {
           </Button>
         }
       />
-    </>
+    </Box>
   );
 };
 

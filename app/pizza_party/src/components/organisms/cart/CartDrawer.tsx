@@ -1,10 +1,11 @@
 import { Box, SwipeableDrawer, Button } from "@mui/material";
 import { useDrawerHandlerLogic } from "../../../hooks/drawerHandlerLogic";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CartItem } from "../../../store/cart-slice";
 import { RootState } from "../../../store";
 import { useNavigate } from "react-router-dom";
 import CartList from "./CartList";
+import { orderActions } from "../../../store/order-slice";
 
 type Props = {
   handlerLogic: ReturnType<typeof useDrawerHandlerLogic>;
@@ -14,6 +15,7 @@ const CartDrawer = (props: Props) => {
   const cartList = useSelector<RootState, CartItem[]>(
     (state) => state.cart.items
   );
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <SwipeableDrawer
@@ -34,8 +36,17 @@ const CartDrawer = (props: Props) => {
             <Button
               color="info"
               onClick={() => {
-                navigate("/order");
+                dispatch(
+                  orderActions.createOrder({
+                    id: 1,
+                    address: null,
+                    cartItems: [],
+                    payment: false,
+                  })
+                );
+
                 props.handlerLogic.onInteraction(false);
+                navigate("/order");
               }}
             >
               Proceede Order
